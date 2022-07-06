@@ -1,0 +1,9 @@
+.editor-test-view {
+  display: flex;
+  padding: 50px;
+  gap: 50px;
+}
+
+.editor-test-view > * {
+  width: 50%;
+}

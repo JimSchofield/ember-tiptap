@@ -1,7 +1,12 @@
 {{page-title "EmberTiptap"}}
 
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
-
 {{outlet}}
+
+<div class="editor-test-view">
+  <div>
+    <TiptapEditor @onUpdate={{this.update}} @initialContent="<p>Testing!</p><MyNodeView></MyNodeView>" />
+  </div>
+  <div>
+    {{{this.contentHtml}}}
+  </div>
+</div>
