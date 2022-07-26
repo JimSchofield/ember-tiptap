@@ -4,6 +4,7 @@ import { Editor } from '@tiptap/core';
 import { modifier } from 'ember-modifier';
 import { registerDestructor } from '@ember/destroyable';
 import { tracked } from '@glimmer/tracking';
+import { convertToTiptapMarkup } from '../utils/converter';
 
 import MyNodeView from './node-views/my-node-view';
 
@@ -12,7 +13,7 @@ export default class TiptapEditorComponent extends Component {
   @tracked json;
 
   setupEditor = modifier((element) => {
-    console.log(this.args.initialContent);
+    // const initialContent = convertToTiptapMarkup(this.args.initialContent);
 
     const editor = new Editor({
       element,

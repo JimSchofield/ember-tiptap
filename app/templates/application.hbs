@@ -4,9 +4,9 @@
 
 <div class="editor-test-view">
   <div>
-    <TiptapEditor @onUpdate={{this.update}} @initialContent="<p>Testing!</p><MyNodeView></MyNodeView>" />
+    <TiptapEditor @onUpdate={{this.update}} @initialContent="<p>Testing!</p><my-card id='test'></my-card>" />
   </div>
   <div>
-    {{{this.contentHtml}}}
+    <TipTapRenderer @content={{this.contentHtml}} />
   </div>
 </div>

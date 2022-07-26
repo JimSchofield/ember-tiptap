@@ -5,21 +5,26 @@ export default Node.create({
   group: 'block',
   atom: true,
   draggable: true,
+  addAttributes() {
+    return {
+      id: {},
+    };
+  },
   parseHTML() {
     return [
       {
-        tag: 'MyNodeView',
+        tag: 'my-card',
       },
     ];
   },
   renderHTML({ HTMLAttributes }) {
-    return ['MyNodeView', mergeAttributes(HTMLAttributes)];
+    return ['my-card', mergeAttributes(HTMLAttributes)];
   },
   addNodeView() {
-    return () => {
+    return ({ node }) => {
       const div = document.createElement('div');
 
-      div.innerHTML = 'My Node View!';
+      div.innerHTML = `My Node View! id: ${node.attrs.id}`;
 
       return {
         dom: div,
