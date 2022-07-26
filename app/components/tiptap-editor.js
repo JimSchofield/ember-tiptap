@@ -4,20 +4,26 @@ import { Editor } from '@tiptap/core';
 import { modifier } from 'ember-modifier';
 import { registerDestructor } from '@ember/destroyable';
 import { tracked } from '@glimmer/tracking';
-import { convertToTiptapMarkup } from '../utils/converter';
 
 import MyNodeView from './node-views/my-node-view';
+import MyCard from './blocks/my-card';
+
+const COMPONENTS = ['my-card'];
+
+const COMPONENT_MAP = {
+  'my-card': MyCard,
+};
 
 export default class TiptapEditorComponent extends Component {
   @tracked html;
   @tracked json;
 
-  setupEditor = modifier((element) => {
-    // const initialContent = convertToTiptapMarkup(this.args.initialContent);
+  @tracked editorComponents;
 
+  setupEditor = modifier((element) => {
     const editor = new Editor({
       element,
-      extensions: [StarterKit, MyNodeView],
+      extensions: [StarterKit, MyNodeView(COMPONENTS)],
       content: this.args.initialContent || '<p>Edit here</p>',
     });
 
@@ -28,6 +34,8 @@ export default class TiptapEditorComponent extends Component {
     editor.on('update', () => {
       this._setValues();
     });
+
+    this.editorComponents = this.parseDocForComponents(editor);
 
     registerDestructor(this, () => this.editor.destroy());
   });
@@ -43,4 +51,22 @@ export default class TiptapEditorComponent extends Component {
       this.args.onUpdate({ html, json });
     }
   };
+
+  getComponentByType = (type) => COMPONENT_MAP(type).component;
+
+  parseDocForComponents(editor) {
+    return editor.state.doc.content.content.reduce((components, node) => {
+      if (node.type.name === 'component') {
+        components.push({
+          type: node.attrs['data-component'],
+          localId: node.attrs.id,
+          get node() {
+            return document.querySelector(`#${node.attrs.id}`);
+          },
+        });
+      }
+
+      return components;
+    }, []);
+  }
 }

@@ -1,3 +1,15 @@
 <div class="tip-tap-editor">
   <div {{this.setupEditor}}></div>
+  {{#each this.editorComponents as |editorComponent|}}
+    {{#if editorComponent.node}}
+    {{#in-element editorComponent.node}}
+      {{#let (this.getComponentByType editorComponent) as |Component|}}
+        {{log Component}}
+        <div class="inline relative">
+          <Component />
+        </div>
+      {{/let}}
+    {{/in-element}}
+    {{/if}}
+  {{/each}}
 </div>

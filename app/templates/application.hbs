@@ -4,7 +4,10 @@
 
 <div class="editor-test-view">
   <div>
-    <TiptapEditor @onUpdate={{this.update}} @initialContent="<p>Testing!</p><my-card id='test'></my-card>" />
+    <TiptapEditor
+      @onUpdate={{this.update}}
+      @initialContent="<p>Testing!</p><div data-component='my-card' id='test'></div>"
+    />
   </div>
   <div>
     <TipTapRenderer @content={{this.contentHtml}} />
