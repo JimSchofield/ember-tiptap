@@ -52,7 +52,7 @@ export default class TiptapEditorComponent extends Component {
     }
   };
 
-  getComponentByType = (type) => COMPONENT_MAP(type).component;
+  getComponentByType = ({ type }) => COMPONENT_MAP[type];
 
   parseDocForComponents(editor) {
     return editor.state.doc.content.content.reduce((components, node) => {
