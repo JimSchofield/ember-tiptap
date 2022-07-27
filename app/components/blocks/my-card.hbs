@@ -1,3 +1,8 @@
-<div class="my-card">
+<div class="my-card" content-editable="false">
   <p>This is my test card</p>
+  <p>
+    <label for="live">Live text:</label>
+    <input type="text" id="live" value={{this.value}} {{on "input" this.onInput}} />
+  </p>
+  <p>{{this.value}}</p>
 </div>

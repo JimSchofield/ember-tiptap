@@ -1,10 +1,14 @@
 <div class="tip-tap-editor">
+  <TiptapToolbar
+    @editor={{this.editor}} 
+    @addEditorComponent={{this.addEditorComponent}}
+  />
   <div {{this.setupEditor}}></div>
   {{#each this.editorComponents as |editorComponent|}}
     {{#if editorComponent.node}}
+    {{log editorComponent}}
     {{#in-element editorComponent.node}}
       {{#let (this.getComponentByType editorComponent) as |Component|}}
-        {{log Component}}
         <div class="inline relative">
           <Component />
         </div>

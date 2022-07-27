@@ -17,6 +17,7 @@ const COMPONENT_MAP = {
 export default class TiptapEditorComponent extends Component {
   @tracked html;
   @tracked json;
+  @tracked editor;
 
   @tracked editorComponents;
 
@@ -40,6 +41,19 @@ export default class TiptapEditorComponent extends Component {
     registerDestructor(this, () => this.editor.destroy());
   });
 
+  addEditorComponent = ({ type, id }) => {
+    this.editorComponents = [
+      ...this.editorComponents,
+      {
+        type,
+        id,
+        get node() {
+          return document.querySelector(`#${id}`);
+        },
+      },
+    ];
+  };
+
   _setValues = () => {
     const html = this.editor.getHTML();
     const json = this.editor.getJSON();
@@ -59,7 +73,7 @@ export default class TiptapEditorComponent extends Component {
       if (node.type.name === 'component') {
         components.push({
           type: node.attrs['data-component'],
-          localId: node.attrs.id,
+          id: node.attrs.id,
           get node() {
             return document.querySelector(`#${node.attrs.id}`);
           },

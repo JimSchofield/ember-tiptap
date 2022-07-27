@@ -15,17 +15,16 @@ export default function createComponentNods(types) {
     parseHTML() {
       return [
         {
-          tag: 'div[data-component]',
+          tag: 'ember-component',
           getAttrs: (dom) => {
             const type = dom.getAttribute('data-component');
-            const localId = dom.getAttribute('id');
+            const id = dom.getAttribute('id');
 
             return types.indexOf(type) > -1
               ? {
                   type,
-                  localId,
                   get node() {
-                    return document.querySelector(`#${localId}`);
+                    return document.querySelector(`#${id}`);
                   },
                 }
               : false;
@@ -34,11 +33,11 @@ export default function createComponentNods(types) {
       ];
     },
     renderHTML({ HTMLAttributes }) {
-      return ['div', mergeAttributes(HTMLAttributes)];
+      return ['ember-component', mergeAttributes(HTMLAttributes)];
     },
     addNodeView() {
       return ({ node }) => {
-        const div = document.createElement('div');
+        const div = document.createElement('ember-component');
 
         div.setAttribute('id', node.attrs.id);
         div.setAttribute('data-component', node.attrs['data-component']);
