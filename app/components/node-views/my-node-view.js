@@ -6,6 +6,7 @@ export default function createComponentNods(types) {
     group: 'block',
     atom: true,
     draggable: true,
+    selectable: false,
     addAttributes() {
       return {
         id: {},
